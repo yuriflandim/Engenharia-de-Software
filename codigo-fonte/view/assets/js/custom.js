@@ -5,48 +5,43 @@ $(document).ajaxStart(function(){ effects.loader.show(); });
 $(document).ajaxComplete(function(){ effects.loader.hide(); });
 
 $(function(){
+    "use strict";
     
     plugins().tootip();  
     
     // Wizard
     if($(".wizard").length > 0){
-        $(".wizard").steps({
-            headerTag: "h3",
-            bodyTag: "section",
-            transitionEffect: "slideLeft",
-            autoFocus: true,
-            labels:{
-                pagination:"Paginação",
-                finish:"Finalizar",
-                next:"Próximo",
-                previous:"Anterior",
-                loading:"Carregando ..."
-            },
-            onStepChanging: function(event, currentIndex, newIndex) {
-                
-                var $this = $(this);
-                
-                if (currentIndex > newIndex) {
-                    return true;
+        
+        var validationWizard = function(element){
+            var countEmpty = 0;
+            $(element).each(function(key, value){
+
+                if($(this).val() == ""){
+                    $(this).parent().addClass("has-error");
+                    countEmpty++;
+                }else{
+                    $(this).parent().removeClass("has-error");
                 }
-                if (currentIndex == 0) {
-                    
-                }
-                
-                if (currentIndex == 1) {
-                                        
-                }
-                               
+
+            });
+
+            if(countEmpty > 0){
+                return false;
+            }else{
                 return true;
-                
-            },
-            onFinished: function(event, currentIndex) {
-                $(this).parents("form").submit();
             }
-        });
+        };
         
         if($(".wizardNewClient").length > 0){
-        
+            
+            plugins().wizard(".wizard",
+                function(){
+                    return true;
+                },
+                function(){
+                    $(".wizardNewClient").submit();
+                });
+            
             var count = 0;
             $(".wizardNewClient").on("click", ".btn-add-fields", function(){
 
@@ -105,8 +100,46 @@ $(function(){
             });
 
         }
+        
+        if($(".wizardNewOperador").length > 0){
+                        
+            plugins().wizard(".wizard",
+                function(event, currentIndex, newIndex){
+                    return validationWizard(".wizardNewOperador section.dados-operador *:required");
+                },
+                function(){
+                    
+                    var _return = validationWizard(".wizardNewOperador section.endereco *:required");
+                    
+                    if(_return === true){
+                        $(".wizardNewOperador").submit();
+                    }else{
+                        return false;
+                    }
+                    
+                });
+        }
 
     }
+    
+    // Mask
+    if($(".mask").length > 0){
+        plugins().mask();
+    }
+        
+    /*
+     * Price Format
+     */
+    if($(".priceFormat").length > 0){
+        plugins().priceFormat();
+    }
+    
+    /*
+     * Somente Número
+     */
+    $("body").on("keypress", ".onlyNumber", function(e){
+        return plugins().somenteNumero(e);
+    });
     
     // Remove
     if($("*[data-action=delete]").length > 0){
@@ -160,7 +193,6 @@ $(function(){
         }
         
     }
-    
     
     /*
      * Table Sorter
@@ -337,14 +369,34 @@ var plugins = function(){
             
         },
         mask: function(){
-            $(".mask-placa-veiculo").mask("aaa 9999");
+            $(".mask-cpf").mask("999.999.999-99");
             $(".mask-cep").mask("99999-999");
             $(".mask-telefone").mask("(99) 9999-9999?9");
-            $(".mask-cnpj").mask("99.999.999/9999-99");
             $(".mask-cpf").mask("999.999.999-99");
         },
         popover: function(){
             $('*[data-toggle=popover]').popover();
+        },
+        wizard: function(element, onStepChanging, onFinished){
+            $(element).steps({
+                headerTag: "h3",
+                bodyTag: "section",
+                transitionEffect: "fade",
+                autoFocus: true,
+                labels:{
+                    pagination:"Paginação",
+                    finish:"Finalizar",
+                    next:"Próximo",
+                    previous:"Anterior",
+                    loading:"Carregando ..."
+                },
+                onStepChanging: function(event, currentIndex, newIndex) {
+                    return onStepChanging(event,currentIndex,newIndex);
+                },
+                onFinished: function(event, currentIndex) {
+                    onFinished(event,currentIndex);
+                }
+            });
         }
     }
 }

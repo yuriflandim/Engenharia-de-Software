@@ -21,39 +21,39 @@
                 <!-- form start -->
                 <form action="" method="post">
 
-                    <div class="wizard wizardReserva">
+                    <div class="wizard wizardNewOperador">
                         <h3>Dados do operador</h3>
-                        <section>
+                        <section class="dados-operador">
                             <div class="row">
 
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="nome">Nome</label>
-                                    <input type="text" class="form-control" id="nome">
+                                    <input type="text" class="form-control" id="nome" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="email">E-mail</label>
-                                    <input type="text" class="form-control" id="email">
+                                    <input type="email" class="form-control" id="email" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="telefone">Telefone</label>
-                                    <input type="text" class="form-control" id="telefone">
+                                    <input type="text" class="form-control mask mask-telefone" id="telefone">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="cpf">CPF</label>
-                                    <input type="text" class="form-control" id="cpf">
+                                    <input type="text" class="form-control mask mask-cpf" id="cpf">
                                 </div>
                             </div>
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="senha">Senha</label>
-                                    <input type="password" class="form-control" id="senha">
+                                    <input type="password" class="form-control" id="senha" required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -69,25 +69,31 @@
                         </section>
 
                         <h3>Endereço</h3>
-                        <section>
+                        <section class="endereco">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-lg-10">
                                         <div class="form-group">
                                             <label for="logradouro">Logradouro</label>
-                                            <input type="text" class="form-control" id="logradouro">
+                                            <input type="text" class="form-control" id="logradouro" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="form-group">
                                             <label for="numero">Número</label>
-                                            <input type="text" class="form-control" id="numero">
+                                            <input type="text" class="form-control" id="numero" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="cep">CEP</label>
+                                            <input type="text" class="form-control mask mask-cep" id="cep" >
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="telefone">Bairro</label>
-                                            <input type="text" class="form-control" id="telefone">
+                                            <input type="text" class="form-control" id="telefone" required>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">

@@ -18,7 +18,7 @@
 
             <div class="box box-primary">
                 <form action="" method="post" class="wizardNewClient">
-                    <div class="wizard wizardReserva">
+                    <div class="wizard">
                         <h3>Dados do usuários</h3>
                         <section>
                             <div class="row">
@@ -40,21 +40,24 @@
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="cpf">CPF</label>
-                                        <input type="text" class="form-control" id="cpf">
+                                        <input type="text" class="form-control mask mask-cpf" id="cpf">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="telefone">Telefone</label>
-                                        <input type="text" class="form-control" id="telefone">
+                                        <input type="text" class="form-control mask mask-telefone" id="telefone">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="salario">Salário</label>
-                                        <input type="text" class="form-control" id="salario">
+                                        <div class="input-group">
+                                            <span class="input-group-addon">R$</span>
+                                            <input type="text" class="form-control priceFormat" id="salario">
+                                        </div>
                                     </div>
                                 </div>
 
@@ -75,6 +78,12 @@
                                         <div class="form-group">
                                             <label for="numero">Número</label>
                                             <input type="text" class="form-control" id="numero">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="form-group">
+                                            <label for="cep">CEP</label>
+                                            <input type="text" class="form-control mask mask-cep" id="cep">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">

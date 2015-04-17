@@ -44,7 +44,7 @@
   color: #ffffff;
 }
 .skin-default .main-header .logo:hover {
-  background: #545096;
+  background: rgba(72, 88, 95, 1);
 }
 .skin-default .main-header li.user-header {
   background-color: #1582DC;

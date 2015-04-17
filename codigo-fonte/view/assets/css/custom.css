@@ -98,12 +98,7 @@ body {
   /*font-family: roboto;*/
 }
 
-.form-box .header h1{  border: 1px #FFF solid;
-  display: block;
-  border-radius: 51px;
-  padding: 27px;
-  width: 100px;
-  margin: 0 auto;}
+.form-box .header h1{  border: 1px #FFF solid;display: block;border-radius: 51px;padding: 27px;width: 100px;margin: 0 auto;font-weight: 300;}
 .form-box .header small{  font-size: 14px; font-style: italic;}
 
 .form-box .header img{ width: 150px }
