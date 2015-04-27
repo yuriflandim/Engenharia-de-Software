@@ -35,13 +35,13 @@
                 </div>
                 <small>Imposto de Renda</small>
             </div>
-            <form action="" method="post" id="login">
+            <form action="<?php echo base_url("index/acessar");?>" method="post" id="login">
                 <div class="body">
                     <div class="form-group">
-                        <input type="email" name="email" id="email" class="form-control" placeholder="E-mail" value="microheyn@gmail.com"/>
+                        <input type="email" name="login_email" id="email" class="form-control" placeholder="E-mail" />
                     </div>
                     <div class="form-group">
-                        <input type="password" name="senha" id="senha" class="form-control" placeholder="Senha" value="123"/>
+                        <input type="password" name="login_senha" id="senha" class="form-control" placeholder="Senha"/>
                     </div>    
                     <button type="submit" class="btn">
                         <i class="fa fa-chevron-right"></i>

@@ -18,6 +18,12 @@ class OperadorModel extends CI_Model{
         return $result;
     }
     
+    public function getByEmail($email){
+        $this->db->where("email",$email);
+        $result = $this->db->get($this->table)->row();
+        return $result;
+    }
+    
     public function add($datas){
         var_dump($datas);
         return $this->db->insert($this->table,$datas);
