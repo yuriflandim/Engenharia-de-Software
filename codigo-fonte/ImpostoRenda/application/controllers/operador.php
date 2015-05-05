@@ -26,28 +26,34 @@ class Operador extends CI_Controller {
     public function editar($id = null){
                 
         if(!is_null($id)){
-            $this->load->view("template/header");
-            $this->load->view("pages/operador/editar", array("result" => $this->operador->getById($id)));
-            $this->load->view("template/footer");
+            
+            $result = $this->operador->getByIdWithAdrress($id);
+            
+            if(!is_null($result)){
+                $this->load->view("template/header");
+                $this->load->view("pages/operador/editar", array("result" => $result));
+                $this->load->view("template/footer");
+            }else{
+                redirect(base_url("operador"));
+            }
+            
         }else{
             redirect(base_url("operador"));
         }
         
     }
     
-    // Process
-    
-    
+    // Process 
     public function newProcess(){
         
         $datas = array( 
-            // key => value
+            "endereco" => $this->input->post("endereco"),
+            "operador" => $this->input->post("operador"),
         );
         
-        $responseOperador = $this->operador->add($this->input->post->$operador);
-        $responseEndereco = $this->endereco->add($this->input->post->$endereco);
+        $responseOperador = $this->operador->add($datas);
         
-        if($responseOperador && $responseEndereco){
+        if($responseOperador){
             echo json_encode(array("status" => "success", "title" => "Sucesso", "message" => "Operador cadastrado com sucesso."));
         }else{
             echo json_encode(array("status" => "error", "title" => "Oops", "message" => "Ocorreu um erro ao cadastar novo operador."));
@@ -58,7 +64,8 @@ class Operador extends CI_Controller {
     public function editProcess(){
         
         $datas = array( 
-            //
+            "endereco" => $this->input->post("endereco"),
+            "operador" => $this->input->post("operador"),
         );
 
         $response = $this->operador->edit($this->input->post("id"), $datas);

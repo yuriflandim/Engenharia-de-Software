@@ -27,10 +27,10 @@ class Index extends CI_Controller {
             if ($datas["senha"] === $response->senha) {
                 echo json_encode(array("status" => "success"));
             } else {
-                echo json_encode(array("status" => "error", "title" => "Oops", "message" => "Dados incorretos."));
+                echo json_encode(array("status" => "error", "title" => "Oops", "message" => "Senha incorretos."));
             }
         } else {
-            echo json_encode(array("status" => "error", "title" => "Oops", "message" => "Usuário não cadastrado."));
+            echo json_encode(array("status" => "error", "title" => "Oops", "message" => "Email incorreto."));
         }
     }
 

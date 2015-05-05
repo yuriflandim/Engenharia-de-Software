@@ -19,7 +19,7 @@
             <div class="box box-primary">
                 <form action="" method="post" class="wizardNewClient">
                     <div class="wizard">
-                        <h3>Dados do usuários</h3>
+                        <h3>Dados do cliente</h3>
                         <section>
                             <div class="row">
                                 <div class="col-lg-6">
@@ -48,16 +48,6 @@
                                     <div class="form-group">
                                         <label for="telefone">Telefone</label>
                                         <input type="text" class="form-control mask mask-telefone" id="telefone">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="salario">Salário</label>
-                                        <div class="input-group">
-                                            <span class="input-group-addon">R$</span>
-                                            <input type="text" class="form-control priceFormat" id="salario">
-                                        </div>
                                     </div>
                                 </div>
 
@@ -133,10 +123,9 @@
 
                     </div>
                     
-                    <!-- Colocar no value a página de listagem de clientes -->
-                    <input type="hidden" name="redirect" value="">
-                        
-                    
+                    <input type="hidden" name="id" value="<?php echo $result->id; ?>">
+                    <input type="hidden" name="endereco[id]" value="<?php echo $result->id_endereco; ?>">
+
                 </form>
             </div><!-- /.box -->
 

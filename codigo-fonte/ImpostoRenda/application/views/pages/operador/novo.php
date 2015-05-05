@@ -100,7 +100,7 @@
                                         <div class="form-group">
                                             <label for="estado">Estado</label>
                                             <select class="form-control" id="estado" name="endereco[id_estado]">
-                                                <option value="">Selecione</option>
+                                                <option value="1">Selecione</option>
                                             </select>
                                         </div>
                                     </div>
@@ -108,7 +108,7 @@
                                         <div class="form-group">
                                             <label for="cidade">Cidade</label>
                                             <select class="form-control" id="cidade" name="endereco[id_cidade]">
-                                                <option value="">Selecione</option>
+                                                <option value="1">Selecione</option>
                                             </select>
                                         </div>
                                     </div>
@@ -119,7 +119,7 @@
                     </div>
 
                     <!-- Colocar no value a página de listagem de operadores -->
-                    <input type="hidden" name="redirect" value="">
+                    <input type="hidden" name="redirect" value="<?php echo base_url("operador"); ?>">
                         
                     
                 </form>

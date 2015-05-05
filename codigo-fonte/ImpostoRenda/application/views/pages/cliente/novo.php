@@ -19,13 +19,13 @@
             <div class="box box-primary">
                 <form action="" method="post" class="wizardNewClient">
                     <div class="wizard">
-                        <h3>Dados do usuários</h3>
+                        <h3>Dados do cliente</h3>
                         <section>
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="nome">Nome</label>
-                                        <input type="text" class="form-control" id="nome">
+                                        <input type="text" class="form-control" name="cliente[nome]" id="nome">
                                     </div>
                                 </div>
 
@@ -33,31 +33,21 @@
                                 <div class="col-lg-6">
                                     <div class="form-group">
                                         <label for="e-mail">E-mail</label>
-                                        <input type="email" class="form-control" id="email">
+                                        <input type="email" class="form-control"name="cliente[email]" id="email">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="cpf">CPF</label>
-                                        <input type="text" class="form-control mask mask-cpf" id="cpf">
+                                        <input type="text" class="form-control mask mask-cpf" name="cliente[cpf]" id="cpf">
                                     </div>
                                 </div>
 
                                 <div class="col-lg-4">
                                     <div class="form-group">
                                         <label for="telefone">Telefone</label>
-                                        <input type="text" class="form-control mask mask-telefone" id="telefone">
-                                    </div>
-                                </div>
-
-                                <div class="col-lg-4">
-                                    <div class="form-group">
-                                        <label for="salario">Salário</label>
-                                        <div class="input-group">
-                                            <span class="input-group-addon">R$</span>
-                                            <input type="text" class="form-control priceFormat" id="salario">
-                                        </div>
+                                        <input type="text" class="form-control mask mask-telefone" name="cliente[telefone]" id="telefone">
                                     </div>
                                 </div>
 
@@ -71,31 +61,31 @@
                                     <div class="col-lg-10">
                                         <div class="form-group">
                                             <label for="logradouro">Logradouro</label>
-                                            <input type="text" class="form-control" id="logradouro">
+                                            <input type="text" class="form-control" name="endereco[logradouro]" id="logradouro">
                                         </div>
                                     </div>
                                     <div class="col-lg-2">
                                         <div class="form-group">
                                             <label for="numero">Número</label>
-                                            <input type="text" class="form-control" id="numero">
+                                            <input type="text" class="form-control" name="endereco[numero]" id="numero">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="cep">CEP</label>
-                                            <input type="text" class="form-control mask mask-cep" id="cep">
+                                            <input type="text" class="form-control mask mask-cep" name="endereco[cep]" id="cep">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="telefone">Bairro</label>
-                                            <input type="text" class="form-control" id="telefone">
+                                            <input type="text" class="form-control" name="endereco[telefone]" id="telefone">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="estado">Estado</label>
-                                            <select class="form-control" id="estado">
+                                            <select class="form-control" name="endereco[id_estado]" id="estado">
                                                 <option value="">Selecione</option>
                                             </select>
                                         </div>
@@ -103,7 +93,7 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="cidade">Cidade</label>
-                                            <select class="form-control" id="cidade">
+                                            <select class="form-control" id="cidade" name="endereco[id_cidade]">
                                                 <option value="">Selecione</option>
                                             </select>
                                         </div>
@@ -112,7 +102,7 @@
                             </div>
                         </section>
 
-                        <h3>Dependentes</h3>
+<!--                        <h3>Dependentes</h3>
                         <section>
                             <div class="row">
                                 <div class="col-md-12" id="dependentes">
@@ -129,7 +119,7 @@
                                 </div>
                                 
                             </div>
-                        </section>
+                        </section>-->
 
                     </div>
                     

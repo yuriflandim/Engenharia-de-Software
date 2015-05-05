@@ -142,7 +142,7 @@
                         </li>
                         <li>
                             <a href="<?php echo base_url("base"); ?>">
-                                <i class="fa fa-dashboard"></i> <span>Base</span>
+                                <i class="fa fa-dashboard"></i> <span>Bases de cálculos</span>
                             </a>
                         </li>
                         <li>
