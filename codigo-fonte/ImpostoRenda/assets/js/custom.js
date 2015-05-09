@@ -150,6 +150,24 @@ $(function(){
     // Mask
     if($(".mask").length > 0){
         plugins().mask();
+        
+        if($(".mask-cpf").length > 0){
+            $(".mask-cpf").on("blur", function(){
+                var value = $(this).val();
+                if(value != ""){
+                    
+                    value = value.replace(".","").replace(".","").replace("-","");
+                    
+                    if(plugins().validaCpf(value) === false){
+                        //plugins().notify("Oops","Cpf inválido", "error");
+                        $(this).val("").parent(".form-group").addClass("has-error").find("label").append("<em class=\"small\"> (Informe um CPF válido)</em>");
+                    }else{
+                        $(this).parent(".form-group").removeClass("has-error").addClass("has-success").find("label em").remove();
+                    }
+                    
+                }
+            });
+        }
     }
         
     /*
@@ -231,6 +249,20 @@ $(function(){
     if($("*[data-sortable]").length > 0){
         plugins().tableSorter("*[data-sortable]");
     }
+    
+    /* 
+     * Lista cidades
+     */
+    $("body").on("change", "select.estado", function(){
+        
+        var $this = $(this);
+        
+        if($this.val() != ""){
+            webService().getCitys($this.attr("data-parent")+" select.cidade", $(this).val());
+        }else{
+            $($this.attr("data-parent")+" select.cidade").html("<option> -- Selecione um estado -- </option>");
+        }
+    });
     
 });
 
@@ -427,6 +459,61 @@ var plugins = function(){
                 onFinished: function(event, currentIndex) {
                     onFinished(event,currentIndex);
                 }
+            });
+        },
+        validaCpf: function(strCPF){
+            var Soma;
+            var Resto;
+            Soma = 0;
+            
+            if (strCPF == "00000000000" || strCPF == "11111111111" || strCPF == "22222222222" || strCPF == "33333333333" || strCPF == "44444444444" || strCPF == "55555555555" || strCPF == "66666666666" || strCPF == "77777777777" || strCPF == "88888888888" || strCPF == "99999999999") return false;
+            
+            for (i=1; i<=9; i++) Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (11 - i);
+            
+            Resto = (Soma * 10) % 11;
+            if ((Resto == 10) || (Resto == 11)) Resto = 0;
+            if (Resto != parseInt(strCPF.substring(9, 10))) return false;
+            
+            Soma = 0;
+            for (i = 1; i <= 10; i++){
+                Soma = Soma + parseInt(strCPF.substring(i-1, i)) * (12 - i);
+            }
+            
+            Resto = (Soma * 10) % 11;
+            if ((Resto == 10) || (Resto == 11)) Resto = 0;
+            if (Resto != parseInt(strCPF.substring(10, 11))) return false;
+            
+            return true;
+            
+        }
+    }
+}
+
+var webService = function(){
+    return {
+        getStates: function(selector){
+            request(base_url+"webService/getStates", "GET",{}, "json", true, function(retorno){
+                
+                var options = "";
+                
+                $.each(retorno, function(key, value){
+                    options += "<option value=\""+value.id_estado+"\">"+value.nome+"</option>";
+                });
+                
+                $(selector).html(options);
+                
+            });
+        },
+        getCitys: function(selector, id_estado){
+            
+            request(base_url+"webService/getCitys/"+id_estado, "GET",{}, "json", true, function(retorno){
+                
+                var options = "";
+                $.each(retorno, function(key, value){
+                    options += "<option value=\""+value.id+"\">"+value.nome+"</option>";
+                });
+                $(selector).html(options);
+                
             });
         }
     }

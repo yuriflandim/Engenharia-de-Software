@@ -1,31 +1,40 @@
 <?php
 
-class UserModel extends CI_Model{
+class lancamentoModel extends CI_Model{
+    
+    private $table = "caixa";
     
     public function __construct() {
         parent::__construct();
     }
     
-    public function newUser($dados){
-        return $this->db->insert("user",$dados);
-    }
-    
-    public function updateUser($name,$email){
-        $this->db->set("name",$name);
-        $this->db->set("email",$email);
-        $this->db->insert("user");
+    public function lastInsert($qtde = 10){
         
+        $this->db->select("*");
+        $this->db->join("cliente","cliente.id = {$this->table}.id_cliente","inner");
+        $this->db->order_by("{$this->table}.id","DESC");
+        $this->db->limit($qtde);
+        return $this->db->get($this->table)->result();
     }
     
     public function listAll(){
-        $result = $this->db->get('user');
-        return $result;
+        return $this->db->get($this->table)->result();
     }
-    public function deleteUser($name,$email){
-        $this->db->set("name",$name);
-        $this->db->set("email",$email);
-        $this->db->insert("user");
+    
+    public function getByClient($id){
+        $this->db->where("id_cliente",$id);
+        return $this->db->get($this->table)->result();
+    }
+    
+    public function add($data){
+        
+        return $this->db->insert($this->table,array(
+            "id_cliente" => $data['cliente'],
+            "valor" => $data['valor'],
+            "data" => date("Y-m-d H:i:s"),
+        ));
         
     }
+    
 }
 

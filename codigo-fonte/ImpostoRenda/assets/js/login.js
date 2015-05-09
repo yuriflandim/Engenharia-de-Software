@@ -30,7 +30,7 @@ $(function () {
             },
             error: function () {
 
-                window.location.href = "index";
+                //window.location.href = "index";
                 $("#loader").fadeOut(200);
                 return false;
             },

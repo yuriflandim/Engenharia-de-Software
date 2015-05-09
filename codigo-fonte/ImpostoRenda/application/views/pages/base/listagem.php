@@ -20,7 +20,7 @@
             
             <div class="box box-primary">
                 
-                <table class="table">
+                <table class="table tablesorter" data-sortable>
                     <thead>
                         <tr>
                             <th>Base de cálculo mensal em R$</th>

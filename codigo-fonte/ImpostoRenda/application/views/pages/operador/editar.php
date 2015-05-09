@@ -109,16 +109,39 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="estado">Estado</label>
-                                            <select class="form-control" id="estado" name="endereco[id_estado]">
-                                                <option value="">Selecione</option>
+                                            <select class="form-control estado" id="estado" name="endereco[id_estado]" data-parent=".endereco">
+                                                <?php
+                                    
+                                                    if($result->id_estado == ""){
+                                                        echo "<option value=\"\"> -- Selecione -- </option>";
+                                                    }
+
+                                                    if($estados){
+                                                        foreach ($estados as $value) {
+                                                            echo "<option value=\"{$value->id}\" ".($value->id === $result->id_estado ? "selected" : "")."> {$value->nome} </option>";
+                                                        }
+                                                    }
+
+                                                ?>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="cidade">Cidade</label>
-                                            <select class="form-control" id="cidade" name="endereco[id_cidade]">
-                                                <option value="">Selecione</option>
+                                                                                        
+                                            <select class="form-control cidade" id="cidade" name="endereco[id_cidade]">
+                                                <?php
+
+                                                    if($listaCidades){
+                                                        foreach ($listaCidades as $value) {
+                                                            echo "<option value=\"{$value->id}\" ".($value->id === $result->id_cidade ? "selected" : "")."> {$value->nome} </option>";
+                                                        }
+                                                    }else{
+                                                        echo "<option value=\"\"> -- Selecione um estado -- </option>";
+                                                    }
+
+                                                ?>
                                             </select>
                                         </div>
                                     </div>

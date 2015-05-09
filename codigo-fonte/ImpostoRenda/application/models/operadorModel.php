@@ -19,8 +19,9 @@ class OperadorModel extends CI_Model {
     }
 
     public function getByIdWithAdrress($id) {
-        $this->db->select($this->table . ".*,e.logradouro,e.bairro,e.cep,e.numero,e.id_cidade");
+        $this->db->select($this->table . ".*,e.logradouro,e.bairro,e.cep,e.numero,e.id_cidade,city.id_estado");
         $this->db->join("endereco e", "e.id = " . $this->table . ".id_endereco", "left");
+        $this->db->join("cidade city", "city.id = e.id_cidade", "left");
         $this->db->where($this->table . ".id", $id);
         return $this->db->get($this->table)->row();
     }
@@ -53,7 +54,7 @@ class OperadorModel extends CI_Model {
 
         $this->db->trans_begin();
 
-        $this->db->query("UPDATE endereco SET logradouro = '{$datas['endereco']['logradouro']}',numero = '{$datas['endereco']['numero']}',bairro = '{$datas['endereco']['bairro']}',cep = '{$datas['endereco']['cep']}',id_cidade = NULL WHERE id = '{$datas['endereco']['id']}'");
+        $this->db->query("UPDATE endereco SET logradouro = '{$datas['endereco']['logradouro']}',numero = '{$datas['endereco']['numero']}',bairro = '{$datas['endereco']['bairro']}',cep = '{$datas['endereco']['cep']}',id_cidade = '{$datas['endereco']['id_cidade']}' WHERE id = '{$datas['endereco']['id']}'");
         $this->db->query("UPDATE operador SET nome = '{$datas['operador']['nome']}',email = '{$datas['operador']['email']}',cpf = '{$datas['operador']['cpf']}',fone = '{$datas['operador']['telefone']}',senha = '{$datas['operador']['senha']}',permissao = '{$datas['operador']['permissao']}' WHERE id = '{$id}'");
 
         if ($this->db->trans_status()) {

@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments.
 |
 */
-$config['base_url'] = 'http://localhost/ImpostoRenda/';
+$config['base_url'] = 'http://localhost/faculdade/6-semestre/IR/Engenharia-de-Software.git/trunk/codigo-fonte/ImpostoRenda/';
 
 /*
 |--------------------------------------------------------------------------

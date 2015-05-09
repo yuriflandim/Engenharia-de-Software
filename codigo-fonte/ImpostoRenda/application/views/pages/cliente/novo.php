@@ -14,10 +14,10 @@
 <section class="content">
     <!-- Info boxes -->
     <div class="row">
-        <div class="col-lg-12">
+        <div class="col-lg-9">
 
             <div class="box box-primary">
-                <form action="" method="post" class="wizardNewClient">
+                <form action="<?php echo base_url("cliente/newProcess"); ?>" method="post" class="wizardNewClient">
                     <div class="wizard">
                         <h3>Dados do cliente</h3>
                         <section>
@@ -36,18 +36,32 @@
                                         <input type="email" class="form-control"name="cliente[email]" id="email">
                                     </div>
                                 </div>
-
-                                <div class="col-lg-4">
+                                
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="cpf">CPF</label>
                                         <input type="text" class="form-control mask mask-cpf" name="cliente[cpf]" id="cpf">
                                     </div>
                                 </div>
-
-                                <div class="col-lg-4">
+                                
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="rg">RG</label>
+                                        <input type="text" class="form-control onlyNumber" name="cliente[rg]" id="rg">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-3">
                                     <div class="form-group">
                                         <label for="telefone">Telefone</label>
                                         <input type="text" class="form-control mask mask-telefone" name="cliente[telefone]" id="telefone">
+                                    </div>
+                                </div>
+                                
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="quantidade_dependentes">Dependentes</label>
+                                        <input type="text" class="form-control onlyNumber" name="cliente[quantidade_dependentes]" id="quantidade_dependentes" value="0">
                                     </div>
                                 </div>
 
@@ -55,7 +69,7 @@
                         </section>
                         
                         <h3>Endereço</h3>
-                        <section>
+                        <section class="endereco">
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="col-lg-10">
@@ -79,21 +93,26 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="telefone">Bairro</label>
-                                            <input type="text" class="form-control" name="endereco[telefone]" id="telefone">
+                                            <input type="text" class="form-control" name="endereco[bairro]" id="telefone">
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="estado">Estado</label>
-                                            <select class="form-control" name="endereco[id_estado]" id="estado">
+                                            <select class="form-control estado" name="endereco[id_estado]" id="estado" data-parent=".endereco">
                                                 <option value="">Selecione</option>
+                                                <?php
+                                                    foreach ($estados as $value_uf):
+                                                        echo "<option value=\"{$value_uf->id}\">{$value_uf->nome}</option>";
+                                                    endforeach;
+                                                ?>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="cidade">Cidade</label>
-                                            <select class="form-control" id="cidade" name="endereco[id_cidade]">
+                                            <select class="form-control cidade" id="cidade" name="endereco[id_cidade]">
                                                 <option value="">Selecione</option>
                                             </select>
                                         </div>
@@ -124,7 +143,7 @@
                     </div>
                     
                     <!-- Colocar no value a página de listagem de clientes -->
-                    <input type="hidden" name="redirect" value="">
+                    <input type="hidden" name="redirect" value="<?php echo base_url("cliente"); ?>">
                         
                     
                 </form>

@@ -99,16 +99,21 @@
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="estado">Estado</label>
-                                            <select class="form-control" id="estado" name="endereco[id_estado]">
-                                                <option value="1">Selecione</option>
+                                            <select class="form-control estado" id="estado" name="endereco[id_estado]" data-parent=".endereco">
+                                                <option value="">Selecione</option>
+                                                <?php
+                                                    foreach ($estados as $value_uf):
+                                                        echo "<option value=\"{$value_uf->id}\">{$value_uf->nome}</option>";
+                                                    endforeach;
+                                                ?>
                                             </select>
                                         </div>
                                     </div>
                                     <div class="col-lg-4">
                                         <div class="form-group">
                                             <label for="cidade">Cidade</label>
-                                            <select class="form-control" id="cidade" name="endereco[id_cidade]">
-                                                <option value="1">Selecione</option>
+                                            <select class="form-control cidade" id="cidade" name="endereco[id_cidade]">
+                                                <option value="">Selecione</option>
                                             </select>
                                         </div>
                                     </div>

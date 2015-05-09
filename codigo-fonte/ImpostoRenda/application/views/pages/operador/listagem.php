@@ -42,7 +42,7 @@
                                     echo "    <td>";
                                     echo "        <div class=\"btn-group\">";
                                     echo "            <a href=\"".base_url("operador/editar/".$value->id)."\" class=\"btn btn-default\" title=\"Editar\"><i class=\"fa fa-edit\"></i></a>";
-                                    echo "            <button type=\"button\" class=\"btn btn-default\" title=\"Remover\" data-action=\"delete\" data-type=\"operador\" data-url=\"".base_url("index.php/operador/deleteProcess/".$value->id)."\"><i class=\"fa fa-trash-o\"></i></button>";
+                                    echo "            <button type=\"button\" class=\"btn btn-default\" title=\"Remover\" data-action=\"delete\" data-type=\"operador\" data-url=\"".base_url("operador/deleteProcess/".$value->id)."\"><i class=\"fa fa-trash-o\"></i></button>";
                                     echo "        </div>";
                                     echo "    </td>";
                                     echo "</tr>";

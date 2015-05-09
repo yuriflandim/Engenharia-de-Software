@@ -7,7 +7,7 @@ class Operador extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->model("operadorModel", "operador");
-         $this->load->model("enderecoModel", "endereco");
+        $this->load->model("enderecoModel", "endereco");
     }
 
     public function index(){
@@ -17,8 +17,12 @@ class Operador extends CI_Controller {
     }
     
     public function novo(){
+        
+        $this->load->model("webServiceModel");
+        $datas['estados'] = $this->webServiceModel->getStates();
+            
         $this->load->view("template/header");
-        $this->load->view("pages/operador/novo");
+        $this->load->view("pages/operador/novo",$datas);
         $this->load->view("template/footer");
     }
     
@@ -30,8 +34,14 @@ class Operador extends CI_Controller {
             $result = $this->operador->getByIdWithAdrress($id);
             
             if(!is_null($result)){
+                
+                $this->load->model("webServiceModel");
+                $datas['estados'] = $this->webServiceModel->getStates();
+                $datas['listaCidades'] = $this->webServiceModel->getAllCitysOfState($result->id_estado);
+                $datas['result'] = $result;
+                                
                 $this->load->view("template/header");
-                $this->load->view("pages/operador/editar", array("result" => $result));
+                $this->load->view("pages/operador/editar", $datas);
                 $this->load->view("template/footer");
             }else{
                 redirect(base_url("operador"));

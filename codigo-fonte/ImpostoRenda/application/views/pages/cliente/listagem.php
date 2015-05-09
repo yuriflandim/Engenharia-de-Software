@@ -14,8 +14,20 @@
     <!-- Info boxes -->
     <div class="row">
         <div class="col-lg-8">
+            
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="btn-group">
+                        <a href="<?php echo base_url("cliente/novo")?>" class="btn btn-default"><i class="fa fa-plus-circle"></i> Cadastrar </a>
+                        <a href="<?php echo base_url("cliente/consultar")?>" class="btn btn-default"><i class="fa fa-search"></i> Consultar </a>
+                    </div>
+                </div>
+            </div>
+            <!--<a href="<?php echo base_url("cliente/novo")?>" class="btn btn-success"><i class="fa fa-plus-circle"></i> Adicionar novo cliente </a>-->
+            <br>    
+                        
             <div class="box box-primary">
-
+                
                 <table class="table tablesorter" data-sortable>
                     <thead>
                         <tr>
@@ -26,39 +38,42 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>Carlos Henrique</td>
-                            <td>microheyn@gmail.com</td>
-                            <td>044.444.444-44</td>
-                            <td>
-                                <div class="btn-group">
-                                    <a href="cadastrar-cliente" class="btn btn-default" title="Editar"><i class="fa fa-edit"></i></a>
-                                    <button type="button" class="btn btn-default" title="Remover"><i class="fa fa-trash-o"></i></button>
-                                </div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>José Antônio</td>
-                            <td>jose@gmail.com</td>
-                            <td>555.555.555-55</td>
-                            <td>
-                                <div class="btn-group">
-                                    <a href="cadastrar-cliente" class="btn btn-default" title="Editar"><i class="fa fa-edit"></i></a>
-                                    <button type="button" class="btn btn-default" title="Remover"><i class="fa fa-trash-o"></i></button>
-                                </div>
-                            </td>
-                        </tr>
+                        
+                        <?php
+                        
+                            if($list){
+                                foreach ($list as $value) {
+                                    
+                                    echo "<tr>";
+                                    echo "    <td>{$value->nome}</td>";
+                                    echo "    <td>{$value->email}</td>";
+                                    echo "    <td>{$value->cpf}</td>";
+                                    echo "    <td>";
+                                    echo "        <div class=\"btn-group\">";
+                                    echo "            <a href=\"".base_url("cliente/editar/".$value->id)."\" class=\"btn btn-default\" title=\"Editar\"><i class=\"fa fa-edit\"></i></a>";
+                                    echo "            <a href=\"".base_url("cliente/historico/".$value->id)."\" class=\"btn btn-default\" title=\"Histórico de movimentações\"><i class=\"fa fa-history\"></i></a>";
+                                    echo "            <button type=\"button\" class=\"btn btn-default\" title=\"Remover\" data-action=\"delete\" data-type=\"cliente\" data-url=\"".base_url("cliente/deleteProcess/".$value->id)."\"><i class=\"fa fa-trash-o\"></i></button>";
+                                    echo "        </div>";
+                                    echo "    </td>";
+                                    echo "</tr>";
+                                    
+                                }
+                            }else{
+                                echo "<tr>";
+                                echo "    <td colspan=\"4\" class=\"text-center\"> Nenhum cliente cadastrado </td>";
+                                echo "</tr>";
+                                
+                            }
+                            
+                        ?>
+                        
                     </tbody>
                 </table>
-
+                
             </div><!-- /.box -->
             
-            <div class="row">
-                <div class="col-md-12">
-                    <a href="<?php echo base_url("cliente/novo")?>" class="btn btn-success"><i class="fa fa-plus-circle"></i> Adicionar novo cliente </a>
-                </div>
-            </div>
-            
+            <p class="pull-right">Ultimos clientes cadastrados</p>
+                
         </div>
     </div>
 
