@@ -7,7 +7,7 @@ $(document).ajaxComplete(function(){ effects.loader.hide(); });
 $(function(){
     "use strict";
     
-    plugins().tootip();  
+    plugins().tootip();
     
     // Wizard
     if($(".wizard").length > 0){
@@ -158,11 +158,15 @@ $(function(){
                     
                     value = value.replace(".","").replace(".","").replace("-","");
                     
+                    $(this).parent(".form-group").find("label em").remove();
+                    
+                    
                     if(plugins().validaCpf(value) === false){
                         //plugins().notify("Oops","Cpf inválido", "error");
                         $(this).val("").parent(".form-group").addClass("has-error").find("label").append("<em class=\"small\"> (Informe um CPF válido)</em>");
+                        $(this).focus();
                     }else{
-                        $(this).parent(".form-group").removeClass("has-error").addClass("has-success").find("label em").remove();
+                        $(this).parent(".form-group").removeClass("has-error").addClass("has-success");
                     }
                     
                 }
@@ -184,70 +188,161 @@ $(function(){
         return plugins().somenteNumero(e);
     });
     
-    // Remove
-    if($("*[data-action=delete]").length > 0){
-        
-        if($("*[data-type=operador]").length > 0){
+    // Filter
+    if($("select#filterBases").length > 0){
+        $("select#filterBases").on("change", function(){
             
-            $("*[data-type=operador]").on("click", function(){
-                var $this = $(this);
-               
-                var response = plugins().windowDialog("Deseja realmente remover este operador?");
+            var _this = $(this);
+            
+            request(base_url+"base/filter/"+$(this).val(), "GET",{}, "json", true, function(retorno){
                 
-                if(response){
-                    request($this.attr("data-url"), "POST", $this.attr("data-json"), "json", true, function(response){
-                        if(response.status === "success"){
-                            $this.parents("tr").remove();
-                        }
-                    });
-                }    
-            });
-            
-        }
-        
-        if($("*[data-type=base]").length > 0){
-            
-            $("*[data-type=base]").on("click", function(){
-                var $this = $(this);
-               
-                var response = plugins().windowDialog("Deseja realmente remover esta base?");
+                var _table_imposto = $("#tableImposto tbody");
+                var _table_inss = $("#tableInss tbody");
+                //var _table_dependente = $("#tableDependente tbody");
                 
-                if(response){
-                    request($this.attr("data-url"), "POST", $this.attr("data-json"), "json", true, function(response){
-                        if(response.status === "success"){
-                            $this.parents("tr").remove();
+                _table_imposto.html("");
+                _table_inss.html("");
+                //_table_dependente.html("");
+                 
+                if(retorno.imposto.length > 0){       
+                    $.each(retorno.imposto, function(key, value){
+
+                        // --- Imposto
+                        var rows = "";
+
+                        var base = "";
+
+                        var _valor_final = parseFloat(value.valor_final);
+                        var _valor_inicial = parseFloat(value.valor_inicial);
+
+                        if(_valor_final > 0){
+                            if(_valor_inicial > 0){
+                                base = "De R$ "+_valor_inicial.formatMoney(2,",",".")+" até R$ "+_valor_final.formatMoney(2,",",".");
+                            }else{
+                                base = " Até R$ "+_valor_final.formatMoney(2,",",".");
+                            }
+                        }else{
+                            base = "Acima de R$ "+_valor_inicial.formatMoney(2,",",".");
                         }
-                    });
-                }    
-            });
-            
-        }
-        
-        if($("*[data-type=cliente]").length > 0){
-            
-            $("*[data-type=cliente]").on("click", function(){
-                var $this = $(this);
-               
-                var response = plugins().windowDialog("Deseja realmente remover este cliente?");
-                
-                if(response){
-                    request($this.attr("data-url"), "POST", $this.attr("data-json"), "json", true, function(response){
-                        if(response.status === "success"){
-                            $this.parents("tr").remove();
+
+                        // Btn action
+                        var _btn;
+
+                        if(value.ano_virgencia == new Date().getFullYear()){
+                            _btn = "<button type=\"button\" class=\"btn btn-default\" title=\"Remover base\" data-action=\"delete\" data-type=\"base\" data-url=\""+(base_url+"base/deleteProcess/"+value.id)+"\"><i class=\"fa fa-trash-o\"></i></button>";
+                        }else{
+                            _btn = "<button type=\"button\" class=\"btn btn-default disabled\" disabled><i class=\"fa fa-trash-o\"></i></button>";
                         }
+
+                        rows += "<tr>";
+                        rows += "   <td class=\"text-center\">"+base+"</td>";
+                        rows += "   <td class=\"text-center\">"+(parseFloat(value.aliquota) > 0 ? parseFloat(value.aliquota).formatMoney(2,",","")+"%" : "-")+"</td>";
+                        rows += "   <td class=\"text-center\">"+(parseFloat(value.parcela_deduzir) > 0 ? "R$ "+parseFloat(value.parcela_deduzir).formatMoney(2,",","") : "-")+"</td>";
+                        rows += "   <td class=\"text-center\">"+_btn+"</td>";
+                        rows += "</tr>";
+
+                        _table_imposto.append(rows);
+
                     });
-                }    
+                }else{
+                    _table_imposto.html("<tr><td colspan=\"4\" class=\"text-center\"> Nenhuma base identificada para esse ano </td></tr>");    
+                }
+                        
+                if(retorno.inss.length > 0){  
+                    $.each(retorno.inss, function(key, value){
+                        
+                        var rows = "";
+
+                        var base = "";
+
+                        var _valor_final = parseFloat(value.valor_final);
+                        var _valor_inicial = parseFloat(value.valor_inicial);
+
+                        if(_valor_final > 0){
+                            if(_valor_inicial > 0){
+                                base = "De R$ "+_valor_inicial.formatMoney(2,",",".")+" até R$ "+_valor_final.formatMoney(2,",",".");
+                            }else{
+                                base = " Até R$ "+_valor_final.formatMoney(2,",",".");
+                            }
+                        }else{
+                            base = "Acima de R$ "+_valor_inicial.formatMoney(2,",",".");
+                        }
+
+                        // Btn action
+                        var _btn;
+
+                        if(value.ano_virgencia == new Date().getFullYear()){
+                            _btn = "<div class=\"btn-group\">";        
+                            _btn += "   <a href=\""+base_url+"inss/editar/"+value.id+"\" class=\"btn btn-default\" title=\"Editar\"><i class=\"fa fa-edit\"></i></a>";
+                            _btn += "   <button type=\"button\" class=\"btn btn-default\" title=\"Remover base\" data-action=\"delete\" data-type=\"base\" data-url=\""+(base_url+"base/deleteProcess/"+value.id)+"\"><i class=\"fa fa-trash-o\"></i></button>";
+                            _btn += "</div>";
+                        }else{
+                            _btn = "<div class=\"btn-group\">";        
+                            _btn += "   <button type=\"button\" class=\"btn btn-default disabled\" disabled><i class=\"fa fa-edit\"></i></button>";
+                            _btn += "   <button type=\"button\" class=\"btn btn-default disabled\" disabled><i class=\"fa fa-trash-o\"></i></button>";
+                            _btn += "</div>";
+                        }
+
+                        rows += "<tr>";
+                        rows += "   <td class=\"text-center\">"+base+"</td>";
+                        rows += "   <td class=\"text-center\">"+(parseFloat(value.aliquota) > 0 ? parseFloat(value.aliquota).formatMoney(2,",","")+"%" : "-")+"</td>";
+                        rows += "   <td class=\"text-center\">"+_btn+"</td>";
+                        rows += "</tr>";
+
+                        _table_inss.append(rows);
+
+                    });
+                    
+                }else{
+                    _table_inss.append("<tr><td colspan=\"4\" class=\"text-center\"> Nenhuma base identificada para esse ano </td></tr>");
+                }
+
             });
-            
-        }
-        
+        });
     }
+    
+    // Remove
+    $("body").on("click", "*[data-action=delete]", function(){
+        
+        var response = false;
+        var _this = $(this);
+        
+        switch (_this.attr("data-type")){
+            case "operador":
+                response = plugins().windowDialog("Deseja realmente remover este operador?");
+                break;
+            case "base":
+                response = plugins().windowDialog("Deseja realmente remover esta base?");
+                break;
+            case "cliente":
+                response = plugins().windowDialog("Deseja realmente remover este cliente?");
+                break;
+            default :
+                break;
+        }
+        
+        if(response){
+            request(_this.attr("data-url"), "POST", _this.attr("data-json"), "json", true, function(response){
+                if(response.status === "success"){
+                    _this.parents("tr").remove();
+                }else{
+                    plugins().notify(response.title, response.message, response.status);
+                }
+            });
+        }
+        
+    });
     
     /*
      * Table Sorter
      */
     if($("*[data-sortable]").length > 0){
         plugins().tableSorter("*[data-sortable]");
+    }
+    
+    /* DataTable*/
+    if ($('.dataTable').length > 0) {
+        plugins().dataTable('.dataTable');
     }
     
     /* 
@@ -305,6 +400,44 @@ var plugins = function(){
     return{   
         tableSorter: function(element){
             $(element).tablesorter(); 
+        },
+        dataTable: function(element){
+            
+            /*  
+            
+            var t = $(element).dataTable({
+                destroy: true,
+                "bPaginate": false,
+                "bLengthChange": false,
+                "bFilter": false,
+                "bSort": true,
+                "bInfo": true,
+                "bAutoWidth": false
+              });
+            var t = $(element).DataTable({
+                destroy: true,
+                "sDom": "<'row no-margin'<''<'col-lg-1 no-padding-left margin-bottom-30'l><'col-lg-5'><'col-lg-6 no-padding-right margin-bottom-30'f>r>t<'row'<'col-lg-4'i><'col-lg-8'p>>>",
+                "oTableTools": {},
+                "oLanguage": {
+                    "sSearch": "<span></span> _INPUT_",
+                    "sLengthMenu": "",//"<span>_MENU_</span>",
+                    "oPaginate": {
+                        "sFirst": "Primeiro",
+                        "sLast": "Último",
+                        sNext: "Próximo",
+                        sPrevious:"Anterior"
+                    },
+                    sEmptyTable: "Nenhuma informação disponível na tabela",
+                    sInfoEmpty: "",
+                    sInfo: "Exibindo _START_ a _END_ registros em um total de _TOTAL_",
+                    sInfoFiltered: "Filtro em um total de _MAX_ registros",
+                    sZeroRecords: "Nenhum registro encontrado para essa busca"
+                }
+            });
+            */
+            //$('.dataTables_filter>label>input').attr("placeholder", "Pesquisar...").addClass('form-control').css("width","100%").addClass('input-lg').parent().addClass("col-lg-12 no-padding-right");
+            
+            //return t;
         },
         windowDialog: function(message, callback){
             return confirm(message);
@@ -556,3 +689,8 @@ var effects = {
         }
     }
 }
+
+Number.prototype.formatMoney = function(g, h, k) {
+    var e = this, g = isNaN(g = Math.abs(g)) ? 2 : g, h = h == undefined ? "." : h, k = k == undefined ? "," : k, f = e < 0 ? "-" : "", a = parseInt(e = Math.abs(+e || 0).toFixed(g)) + "", b = (b = a.length) > 3 ? b % 3 : 0;
+    return f + (b ? a.substr(0, b) + k : "") + a.substr(b).replace(/(\d{3})(?=\d)/g, "$1" + k) + (g ? h + Math.abs(e - a).toFixed(g).slice(2) : "");
+};

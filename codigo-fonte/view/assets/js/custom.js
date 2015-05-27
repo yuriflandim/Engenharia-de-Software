@@ -122,6 +122,31 @@ $(function(){
 
     }
     
+    /*
+     * Date Range Picker
+     */
+    if($('#dateRangePicker').length > 0){
+        $('#dateRangePicker').daterangepicker({
+            ranges: {
+                'Hoje': [moment(), moment()],
+                'Ontem': [moment().subtract('days', 1), moment().subtract('days', 1)],
+                'Últimos 7 dias': [moment().subtract('days', 7), moment()],
+                'Ultimos 30 dias': [moment().subtract('days', 30), moment()],
+                'Mês atual': [moment().startOf('month'), moment().endOf('month')],
+                'Último Mês': [moment().subtract('month', 1).startOf('month'), moment().subtract('month', 1).endOf('month')]
+             },
+            format: 'DD/MM/YYYY',
+            locale: {
+                applyLabel: 'Aplicar',
+                cancelLabel: 'Cancelar',
+                fromLabel: 'De',
+                toLabel: 'Até',
+                weekLabel: 'W',
+                customRangeLabel: 'Personalizar Filtro'
+            }
+        });
+    }
+    
     // Mask
     if($(".mask").length > 0){
         plugins().mask();

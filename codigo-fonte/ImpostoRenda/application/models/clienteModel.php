@@ -8,6 +8,12 @@ class ClienteModel extends CI_Model{
         parent::__construct();
     }
     
+    public function getById($id){
+        $this->db->where("id",$id);
+        $result = $this->db->get($this->table)->row();
+        return $result;
+    }
+    
     public function getName($id){
         $this->db->select("nome");
         $this->db->where("id",$id);

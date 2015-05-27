@@ -27,8 +27,8 @@
         <script src="<?php echo base_url("assets/plugins/pnotify/jquery.pnotify.min.js"); ?>"></script>
         
         <!-- Data Table -->
-        <!--<script src="assets/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>-->
-        <!--<script src="assets/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>-->
+        <script src="assets/plugins/datatables/jquery.dataTables.min.js" type="text/javascript"></script>
+        <script src="assets/plugins/datatables/dataTables.bootstrap.js" type="text/javascript"></script>
         
         <!-- Sort table -->
         <script src="<?php echo base_url("assets/plugins/sortable/jquery.tablesorter.min.js"); ?>"></script> 

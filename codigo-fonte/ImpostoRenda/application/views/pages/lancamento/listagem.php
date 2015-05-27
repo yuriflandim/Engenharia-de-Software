@@ -16,11 +16,11 @@
         <div class="col-lg-12">
             
             <div class="row">
-                <div class="col-lg-12">
-                    <div class="btn-group">
-                        <a href="<?php echo base_url("lancamento/novo")?>" class="btn btn-default"><i class="fa fa-plus-circle"></i> Novo lançamento </a>
-                        <a href="<?php echo base_url("lancamento/consultar")?>" class="btn btn-default"><i class="fa fa-search"></i> Consultar </a>
-                    </div>
+                <div class="col-md-2 col-xs-6 col-sm-6">
+                    <a href="<?php echo base_url("lancamento/novo")?>" class="btn btn-success btn-block"><i class="fa fa-plus-circle"></i> Novo lançamento </a>
+                </div>
+                <div class="col-md-2 col-xs-6 col-sm-6">
+                    <a href="<?php echo base_url("lancamento/consultar")?>" class="btn btn-default btn-block"><i class="fa fa-search"></i> Consultar </a>
                 </div>
             </div>
             <br>
@@ -40,7 +40,7 @@
                                 <th>Valor do lançamanto</th>
                                 <th>Alíquota</th>
                                 <th>Dedução</th>
-                                <th>Valor imposto</th>
+                                <th>Valor do imposto</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -53,10 +53,10 @@
                                         echo "<tr>";
                                         echo "    <td>".date("d/m/Y H:i:s", strtotime($value->data))."</td>";
                                         echo "    <td>{$value->nome}</td>";
-                                        echo "    <td>R$ ".number_format($value->valor,2,",",".")."</td>";
-                                        echo "    <td></td>";
-                                        echo "    <td></td>";
-                                        echo "    <td></td>";
+                                        echo "    <td>R$ ".number_format($value->valor_lancamento,2,",",".")."</td>";
+                                        echo "    <td>".number_format($value->aliquota,2,",","")."%</td>";
+                                        echo "    <td>R$ ".number_format($value->parcela_deduzir,2,",",".")."</td>";
+                                        echo "    <td>R$ ".number_format($value->valor_imposto,2,",",".")."</td>";
                                         echo "</tr>";
                                     }
                                     

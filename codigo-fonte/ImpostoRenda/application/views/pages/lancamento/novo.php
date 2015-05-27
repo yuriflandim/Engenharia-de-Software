@@ -51,6 +51,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label for="pensao_alimenticia">Pensão alimentícia</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">R$</span>
+                                        <input type="text" class="form-control priceFormat" name="pensao_alimenticia" id="pensao_alimenticia" placeholder="0,00" <?php echo !$clientes ? "disabled" : ""; ?>>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div><!-- /.box-body -->
 

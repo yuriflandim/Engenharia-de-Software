@@ -64,7 +64,7 @@
                     </div><!-- /.box-body -->
 
                     <div class="box-footer">
-                        <!-- Colocar no value a página de listagem de bases -->
+                        <a href="<?php echo base_url("base"); ?>" class="btn btn-default">Voltar</a>
                         <input type="hidden" name="redirect" value="<?php echo base_url("base"); ?>">
                         <button type="submit" class="btn btn-primary">Cadastrar</button>
                     </div>

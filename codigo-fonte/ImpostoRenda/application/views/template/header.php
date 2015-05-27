@@ -73,23 +73,11 @@
                                     <span class="hidden-xs">Carlos Henrique</span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <!-- User image -->
-                                    <li class="user-header">
-                                        <img src="<?php echo base_url("assets/img/avatar5.png"); ?>" class="img-circle" alt="User Image" />
-                                        <p>
-                                            Carlos Henrique - Desenvolvedor
-                                            <small>Membro desde Abr. 2015</small>
-                                        </p>
-                                    </li>
-                                    <!-- Menu Body -->
                                     <li class="user-body">
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Link #01</a>
+                                        <div class="col-xs-6 text-center">
+                                            <a href="#">Configurações</a>
                                         </div>
-                                        <div class="col-xs-4 text-center">
-                                            <a href="#">Link #02</a>
-                                        </div>
-                                        <div class="col-xs-4 text-center">
+                                        <div class="col-xs-6 text-center">
                                             <a href="#">Link #03</a>
                                         </div>
                                     </li>
@@ -113,6 +101,7 @@
                 <!-- sidebar: style can be found in sidebar.less -->
                 <section class="sidebar">
                     <!-- Sidebar user panel -->
+                    <!--
                     <div class="user-panel">
                         <div class="pull-left image">
                             <img src="<?php echo base_url("assets/img/avatar5.png"); ?>" class="img-circle" alt="User Image" />
@@ -122,7 +111,9 @@
                             <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
                         </div>
                     </div>
+                    -->
                     <!-- search form -->
+                    <!--
                     <form action="#" method="get" class="sidebar-form">
                         <div class="input-group">
                             <input type="text" name="q" class="form-control" placeholder="Pesquisar..."/>
@@ -131,6 +122,7 @@
                             </span>
                         </div>
                     </form>
+                    -->
                     <!-- /.search form -->
                     <!-- sidebar menu: : style can be found in sidebar.less -->
                     <ul class="sidebar-menu">

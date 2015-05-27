@@ -28,7 +28,7 @@
                         
             <div class="box box-primary">
                 
-                <table class="table tablesorter" data-sortable>
+                <table class="table table-bordered table-striped dataTable">
                     <thead>
                         <tr>
                             <th>Nome</th>
